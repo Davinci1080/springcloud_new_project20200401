@@ -11,3 +11,8 @@ eureka:
 
   instance:
     prefer-ip-address: true
+
+crowd:
+  short:
+    message:
+      appCode: a80bf60561424f908da06d5665d79d98

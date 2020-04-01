@@ -17,6 +17,9 @@
     id, loginacct, userpswd, username, email, authstatus, usertype, realname, cardnum, 
     accttype
   </sql>
+    <select id="selectCountByLoginAcct" parameterType="com.itcast.entity.MemberPo" resultType="java.lang.Integer" >
+        select count(*) from t_member where loginacct = #{loginAcct,jdbcType=VARCHAR}
+    </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

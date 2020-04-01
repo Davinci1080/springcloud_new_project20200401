@@ -13,4 +13,10 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberPoMapper memberPoMapper;
+
+    public int getLoginAcctCount(String loginAcct) {
+        int count = memberPoMapper.selectCountByLoginAcct(loginAcct);
+        System.out.println(count);
+        return count;
+    }
 }

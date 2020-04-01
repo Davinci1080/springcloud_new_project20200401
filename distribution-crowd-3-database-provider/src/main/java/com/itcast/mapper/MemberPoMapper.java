@@ -14,4 +14,6 @@ public interface MemberPoMapper {
     int updateByPrimaryKeySelective(MemberPo record);
 
     int updateByPrimaryKey(MemberPo record);
+
+    int selectCountByLoginAcct(String LoginAcct);
 }

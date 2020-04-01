@@ -5,6 +5,7 @@ import com.itcast.entity.ResultEntity;
 import com.itcast.util.CrowdConstant;
 import com.itcast.util.CrowdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,9 @@ public class MemberController {
     @Autowired
     private RedisOperationRemoteService redisOperationRemoteService;
 
+    // Spring会根据@Value注解中的表达式读取yml或properties配置文件给成员变量设置对应的值
+    @Value("${crowd.short.message.appCode}")
+    private String appcode;
     @RequestMapping("/member/manager/send/code")
     //传入发短信的手机号
     public ResultEntity<String> sendCode(@RequestParam("phoneNum") String phoneNum){
@@ -40,8 +44,14 @@ public class MemberController {
         }
 
         //4.发送验证码到用户的手机
-        String appcode = "a80bf60561424f908da06d5665d79d98";
-        CrowdUtils.sendShortMessage(appcode,randomCode,phoneNum);
-        return null;
+        //String appcode = "a80bf60561424f908da06d5665d79d98";
+        System.out.println(appcode+0000);
+        try {
+            CrowdUtils.sendShortMessage(appcode,randomCode,phoneNum);
+            return ResultEntity.successNoData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultEntity.failed(e.getMessage());
+        }
     }
 }
