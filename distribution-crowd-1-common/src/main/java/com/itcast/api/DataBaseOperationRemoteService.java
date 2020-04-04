@@ -13,6 +13,8 @@ public interface DataBaseOperationRemoteService {
     //登录的数量
     ResultEntity<Integer> retrieveLoignAcctCount(@RequestParam("loginAcct") String loginAcct);
 
+    //这个是在database-provider中保存Member
+    //注意一定要写@RequestBody注解如果不写这个注解数据就喘不过来
     @RequestMapping("/save/member/remote")
     ResultEntity<String> saveMemberRemote(@RequestBody MemberPo memberPO);
 }
