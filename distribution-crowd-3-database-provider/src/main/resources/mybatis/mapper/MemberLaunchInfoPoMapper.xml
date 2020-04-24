@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itcast.mapper.MemberLaunchInfoPoMapper">
+  <resultMap id="BaseResultMap" type="com.itcast.entity.MemberLaunchInfoPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="memberid" jdbcType="INTEGER" property="memberid" />
+    <result column="description_simple" jdbcType="VARCHAR" property="descriptionSimple" />
+    <result column="description_detail" jdbcType="VARCHAR" property="descriptionDetail" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+    <result column="service_num" jdbcType="VARCHAR" property="serviceNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, memberid, description_simple, description_detail, phone_num, service_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_launch_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_member_launch_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itcast.entity.MemberLaunchInfoPo">
+    insert into t_member_launch_info (id, memberid, description_simple, 
+      description_detail, phone_num, service_num
+      )
+    values (#{id,jdbcType=INTEGER}, #{memberid,jdbcType=INTEGER}, #{descriptionSimple,jdbcType=VARCHAR}, 
+      #{descriptionDetail,jdbcType=VARCHAR}, #{phoneNum,jdbcType=VARCHAR}, #{serviceNum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itcast.entity.MemberLaunchInfoPo">
+    insert into t_member_launch_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberid != null">
+        memberid,
+      </if>
+      <if test="descriptionSimple != null">
+        description_simple,
+      </if>
+      <if test="descriptionDetail != null">
+        description_detail,
+      </if>
+      <if test="phoneNum != null">
+        phone_num,
+      </if>
+      <if test="serviceNum != null">
+        service_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null">
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="descriptionSimple != null">
+        #{descriptionSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionDetail != null">
+        #{descriptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceNum != null">
+        #{serviceNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itcast.entity.MemberLaunchInfoPo">
+    update t_member_launch_info
+    <set>
+      <if test="memberid != null">
+        memberid = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="descriptionSimple != null">
+        description_simple = #{descriptionSimple,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptionDetail != null">
+        description_detail = #{descriptionDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null">
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceNum != null">
+        service_num = #{serviceNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itcast.entity.MemberLaunchInfoPo">
+    update t_member_launch_info
+    set memberid = #{memberid,jdbcType=INTEGER},
+      description_simple = #{descriptionSimple,jdbcType=VARCHAR},
+      description_detail = #{descriptionDetail,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=VARCHAR},
+      service_num = #{serviceNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itcast.mapper.ProjectItemPicPoMapper">
+  <resultMap id="BaseResultMap" type="com.itcast.entity.ProjectItemPicPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="projectid" jdbcType="INTEGER" property="projectid" />
+    <result column="item_pic_path" jdbcType="VARCHAR" property="itemPicPath" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, projectid, item_pic_path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_project_item_pic
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_project_item_pic
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itcast.entity.ProjectItemPicPo">
+    insert into t_project_item_pic (id, projectid, item_pic_path
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectid,jdbcType=INTEGER}, #{itemPicPath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.itcast.entity.ProjectItemPicPo">
+    insert into t_project_item_pic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectid != null">
+        projectid,
+      </if>
+      <if test="itemPicPath != null">
+        item_pic_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectid != null">
+        #{projectid,jdbcType=INTEGER},
+      </if>
+      <if test="itemPicPath != null">
+        #{itemPicPath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itcast.entity.ProjectItemPicPo">
+    update t_project_item_pic
+    <set>
+      <if test="projectid != null">
+        projectid = #{projectid,jdbcType=INTEGER},
+      </if>
+      <if test="itemPicPath != null">
+        item_pic_path = #{itemPicPath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itcast.entity.ProjectItemPicPo">
+    update t_project_item_pic
+    set projectid = #{projectid,jdbcType=INTEGER},
+      item_pic_path = #{itemPicPath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -26,6 +26,12 @@
     from t_member
     where id = #{id,jdbcType=INTEGER}
   </select>
+    <select id="selectMemberByLoginAcct" parameterType="com.itcast.entity.MemberPo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_member
+        where loginacct = #{loginAcct,jdbcType=INTEGER}
+    </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_member
     where id = #{id,jdbcType=INTEGER}

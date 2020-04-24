@@ -3,6 +3,7 @@ package com.itcast.controller;
 import com.itcast.api.DataBaseOperationRemoteService;
 import com.itcast.api.RedisOperationRemoteService;
 import com.itcast.entity.MemberPo;
+import com.itcast.entity.MemberSignSuccessVo;
 import com.itcast.entity.MemberVo;
 import com.itcast.entity.ResultEntity;
 import com.itcast.util.CrowdConstant;
@@ -35,6 +36,62 @@ public class MemberController {
     // Spring会根据@Value注解中的表达式读取yml或properties配置文件给成员变量设置对应的值
     @Value("${crowd.short.message.appCode}")
     private String appcode;
+
+
+    //退出操作
+   @RequestMapping("/member/manager/logout")
+    public ResultEntity<String> logout(@RequestParam("token") String token) {
+
+        return redisOperationRemoteService.removeByKey(token);
+    }
+    @RequestMapping("/memberm/manager/login")
+    public ResultEntity<MemberSignSuccessVo> login(@RequestParam("loginAcct") String loginAcct,@RequestParam("userPswf") String userPswd){
+        //根据登录账户查询数据库获取MemberPO对象
+        ResultEntity<MemberPo> memberPoResultEntity = dataBaseOperationRemoteService.retrieveMemberByLoginAcct(loginAcct);
+        if (ResultEntity.FAILED.equals(memberPoResultEntity.getResult())){
+            return ResultEntity.failed(memberPoResultEntity.getMessage());
+        }
+
+        //获取MemberPo的对象是否为空
+        MemberPo memberPo = memberPoResultEntity.getData();
+        if (memberPo == null){
+            return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_FAILED);
+        }
+
+        //获取从数据库查询的到的密码
+        String userpswdDatabase = memberPo.getUserpswd();
+
+        //比较密码
+        boolean matches = bCryptPasswordEncoder.matches(userPswd, userpswdDatabase);
+
+        if (!matches){
+            return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_FAILED);
+        }
+        
+        //生成Token
+        String token = CrowdUtils.generateToken();
+        
+        //从MemberPo对象获取memberId
+        String memberId = memberPo.getId() + "";
+
+        // 8.将token和memberId存入Redis
+        ResultEntity<String> resultEntitySaveToken = redisOperationRemoteService.saveNormalStringKeyValue(token, memberId, 30);
+
+        if(ResultEntity.FAILED.equals(resultEntitySaveToken.getResult())) {
+            return ResultEntity.failed(resultEntitySaveToken.getMessage());
+        }
+
+        // 9.封装MemberSignSuccessVO对象
+        MemberSignSuccessVo memberSignSuccessVO = new MemberSignSuccessVo();
+
+        // 调用Spring提供的BeanUtils.copyProperties()工具类直接完成属性值注入
+        BeanUtils.copyProperties(memberPo, memberSignSuccessVO);
+
+        memberSignSuccessVO.setToken(token);
+
+        // 10.返回结果
+        return ResultEntity.successWithData(memberSignSuccessVO);
+    }
 
     @RequestMapping("/member/manager/send/code")
     //传入发短信的手机号

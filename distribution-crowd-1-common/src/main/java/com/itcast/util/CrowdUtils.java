@@ -7,8 +7,28 @@ import org.apache.http.util.EntityUtils;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CrowdUtils {
+
+    /**
+     * 根据不同前缀生成Redis中保存数据的key
+     * @param prefix
+     * @return
+     */
+    public static String generateRedisKeyByPrefix(String prefix) {
+        return prefix + UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
+    /**
+     * 生成用户登录成功后使用的token
+     * @return
+     * @author 封捷
+     */
+    public static String generateToken() {
+
+        return CrowdConstant.REDIS_MEMBER_SING_TOKEN_PREFIX + UUID.randomUUID().toString().replaceAll("-", "");
+    }
     /**
      * 验证集合是否有效
      * @param c		待验证集合

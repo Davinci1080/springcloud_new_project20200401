@@ -14,6 +14,7 @@
         <module>distribution-crowd-3-database-provider</module>
         <module>distribution-crow-4-redis-provider</module>
         <module>distribution-crowd-5-member-manager</module>
+        <module>distribution-crowd-6-project-manager</module>
     </modules>
 
     <properties>

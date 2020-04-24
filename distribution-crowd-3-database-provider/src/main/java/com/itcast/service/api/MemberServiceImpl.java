@@ -25,4 +25,9 @@ public class MemberServiceImpl implements MemberService {
     public void saveMemberPO(MemberPo memberPO) {
         memberPoMapper.insert(memberPO);
     }
+
+    public MemberPo getMemberByLoginAcct(String loginAcct) {
+        MemberPo memberPo = memberPoMapper.selectMemberByLoginAcct(loginAcct);
+        return memberPo;
+    }
 }

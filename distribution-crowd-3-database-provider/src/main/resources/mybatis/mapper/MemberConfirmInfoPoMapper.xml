@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itcast.mapper.MemberConfirmInfoPoMapper">
+  <resultMap id="BaseResultMap" type="com.itcast.entity.MemberConfirmInfoPo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="memberid" jdbcType="INTEGER" property="memberid" />
+    <result column="paynum" jdbcType="VARCHAR" property="paynum" />
+    <result column="cardnum" jdbcType="VARCHAR" property="cardnum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, memberid, paynum, cardnum
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_member_confirm_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_member_confirm_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.itcast.entity.MemberConfirmInfoPo">
+    insert into t_member_confirm_info (id, memberid, paynum, 
+      cardnum)
+    values (#{id,jdbcType=INTEGER}, #{memberid,jdbcType=INTEGER}, #{paynum,jdbcType=VARCHAR}, 
+      #{cardnum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.itcast.entity.MemberConfirmInfoPo">
+    insert into t_member_confirm_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="memberid != null">
+        memberid,
+      </if>
+      <if test="paynum != null">
+        paynum,
+      </if>
+      <if test="cardnum != null">
+        cardnum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null">
+        #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="paynum != null">
+        #{paynum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnum != null">
+        #{cardnum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.itcast.entity.MemberConfirmInfoPo">
+    update t_member_confirm_info
+    <set>
+      <if test="memberid != null">
+        memberid = #{memberid,jdbcType=INTEGER},
+      </if>
+      <if test="paynum != null">
+        paynum = #{paynum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardnum != null">
+        cardnum = #{cardnum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.itcast.entity.MemberConfirmInfoPo">
+    update t_member_confirm_info
+    set memberid = #{memberid,jdbcType=INTEGER},
+      paynum = #{paynum,jdbcType=VARCHAR},
+      cardnum = #{cardnum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

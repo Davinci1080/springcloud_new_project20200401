@@ -45,4 +45,19 @@ public class MemberController {
        }
        return ResultEntity.successNoData();
    };
+
+    @RequestMapping("/retrieve/member/by/login/acct")
+    public ResultEntity<MemberPo> retrieveMemberByLoginAcct(@RequestParam("loginAcct") String loginAcct){
+        if (!CrowdUtils.strEffectiveCheck(loginAcct)){
+            return ResultEntity.failed(CrowdConstant.MESSAGE_LOGIN_FAILED);
+        }
+        try {
+            MemberPo memberPo = memberService.getMemberByLoginAcct(loginAcct);
+            return ResultEntity.successWithData(memberPo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultEntity.failed(e.getMessage());
+        }
+    };
+
 }
