@@ -24,6 +24,7 @@ public class test001 {
         }*/
 
         System.out.println("测试分支的可用性");
+        System.out.println("测试合并");
 
     }
 }
