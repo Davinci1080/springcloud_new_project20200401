@@ -23,8 +23,7 @@ public class test001 {
             System.out.println("success");
         }*/
 
-
-
+        System.out.println("测试分支的可用性");
 
     }
 }
