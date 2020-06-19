@@ -1,6 +1,9 @@
 package com.itcast.mapper;
 
 import com.itcast.entity.ProjectItemPicPo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ProjectItemPicPoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface ProjectItemPicPoMapper {
     int updateByPrimaryKeySelective(ProjectItemPicPo record);
 
     int updateByPrimaryKey(ProjectItemPicPo record);
+
+    void addprojectItemPicPOList(@Param("projectItemPicPOList") List<ProjectItemPicPo> projectItemPicPOList);
 }

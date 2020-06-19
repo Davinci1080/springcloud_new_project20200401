@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class CrowdUtils {
-
     /**
      * 根据不同前缀生成Redis中保存数据的key
      * @param prefix

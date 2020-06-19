@@ -19,6 +19,11 @@
     delete from t_tag
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <insert id="insertRelationshipBatch">
+        insert into t_project_tag(projectid,tagid)
+        values
+        <foreach collection="tagIdList" item="tagId" separator=",">(#{projectId},#{tagId})</foreach>
+    </insert>
   <insert id="insert" parameterType="com.itcast.entity.TagPo">
     insert into t_tag (id, pid, name
       )

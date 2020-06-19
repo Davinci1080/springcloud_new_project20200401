@@ -29,6 +29,18 @@
     delete from t_return
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <insert id="insertBatch">
+         insert into t_return (projectid, type,
+      supportmoney, content, count,
+      signalpurchase, purchase, freight,
+      invoice, returndate, describ_pic_path
+      )
+    values <foreach collection="returnPOList" item="relist" separator=",">( #{relist.projectid,jdbcType=INTEGER}, #{relist.type,jdbcType=TINYINT},
+        #{relist.supportmoney,jdbcType=INTEGER}, #{relist.content,jdbcType=VARCHAR}, #{relist.count,jdbcType=INTEGER},
+        #{relist.signalpurchase,jdbcType=INTEGER}, #{relist.purchase,jdbcType=INTEGER}, #{relist.freight,jdbcType=INTEGER},
+        #{relist.invoice,jdbcType=TINYINT}, #{relist.returndate,jdbcType=INTEGER}, #{relist.describPicPath,jdbcType=VARCHAR}
+        )</foreach>
+    </insert>
   <insert id="insert" parameterType="com.itcast.entity.ReturnPo">
     insert into t_return (id, projectid, type, 
       supportmoney, content, count, 

@@ -199,6 +199,7 @@ public class ProjectController {
 
     }
 
+    //这是保存项目详情的代码
     @RequestMapping("/project/manager/save/detail/picture/path/list")
     public ResultEntity<String> saveDetailPicturePathList(@RequestParam("memberSignToken") String memberSignToken,
                                                           @RequestParam("projectTempToken") String projectTempToken,
@@ -235,6 +236,7 @@ public class ProjectController {
 
     }
 
+    //这是保存头图就是项目制定的图片图片的代码 因为上一步中初始化已经完成所以这里可以直接将相对应的t路劲由前端返回
     @RequestMapping("/project/manager/save/head/picture/path")
     public ResultEntity<String> saveHeadPicturePath(@RequestParam("memberSignToken") String memberSignToken,
                                                     @RequestParam("projectTempToken") String projectTempToken,
@@ -255,6 +257,7 @@ public class ProjectController {
         }
 
         // 从Redis查询到JSON字符串
+        //这里取出来的就是projectVo的json字符串
         String projectVOJSON = resultEntityForGetValue.getData();
 
         // 将JSON字符串还原成ProjectVO对象
@@ -271,7 +274,9 @@ public class ProjectController {
 
     }
 
+    //对项目的创建进行初始化
     @RequestMapping("/project/manager/initCreation")
+    //从redis里面检验token查看是否登录所以使用@RequestParam来讲所需要的传进来
     public ResultEntity<ProjectVO> initCreation(@RequestParam("memberSignToken") String memberSignToken) {
 
         // 1.检查是否登录，也就是检查memberSignToken是否有效
@@ -292,7 +297,7 @@ public class ProjectController {
         // 3.将memberSignToken存入ProjectVO对象
         projectVO.setMemberSignToken(memberSignToken);
 
-        // 4.将projectTempToken存入ProjectVO对象
+        // 4.将projectTempToken存入ProjectVO对象 REDIS_PROJECT_TEMP_TOKEN_PREFIX是键值对的键
         String projectTempToken = CrowdUtils.generateRedisKeyByPrefix(CrowdConstant.REDIS_PROJECT_TEMP_TOKEN_PREFIX);
 
         projectVO.setProjectTempToken(projectTempToken);

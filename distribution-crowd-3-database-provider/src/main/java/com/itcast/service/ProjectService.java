@@ -1,12 +1,8 @@
 package com.itcast.service;
 
-import com.itcast.entity.MemberPo;
+import com.itcast.entity.ProjectVO;
 
 public interface ProjectService {
 
-    int getLoginAcctCount(String loginAcct);
-
-    void saveMemberPO(MemberPo memberPO);
-
-    MemberPo getMemberByLoginAcct(String loginAcct);
+    void saveProject(ProjectVO projectVO, String memberId);
 }

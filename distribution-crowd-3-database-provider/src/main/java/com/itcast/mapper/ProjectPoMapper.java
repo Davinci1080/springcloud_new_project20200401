@@ -1,6 +1,10 @@
 package com.itcast.mapper;
 
 import com.itcast.entity.ProjectPo;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 public interface ProjectPoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,6 @@ public interface ProjectPoMapper {
     int updateByPrimaryKeySelective(ProjectPo record);
 
     int updateByPrimaryKey(ProjectPo record);
+
+    void addProjectAndType(@Param("projectId") Integer projectPoId, @Param("typeIdList") List<Integer> typeIdList);
 }

@@ -19,6 +19,12 @@
     delete from t_project_item_pic
     where id = #{id,jdbcType=INTEGER}
   </delete>
+    <insert id="addprojectItemPicPOList">
+        insert into t_project_item_pic (projectid, item_pic_path
+      )  values <foreach collection="projectItemPicPOList" item="item" index="index" separator=",">
+        (#{item.projectid},#{item.itemPicPath})
+    </foreach> ;
+    </insert>
   <insert id="insert" parameterType="com.itcast.entity.ProjectItemPicPo">
     insert into t_project_item_pic (id, projectid, item_pic_path
       )

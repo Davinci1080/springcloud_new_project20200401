@@ -1,6 +1,9 @@
 package com.itcast.mapper;
 
 import com.itcast.entity.TagPo;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface TagPoMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,6 @@ public interface TagPoMapper {
     int updateByPrimaryKeySelective(TagPo record);
 
     int updateByPrimaryKey(TagPo record);
+
+    void insertRelationshipBatch(@Param("projectId") Integer projectId,@Param("tagIdList") List<Integer> tagIdList);
 }

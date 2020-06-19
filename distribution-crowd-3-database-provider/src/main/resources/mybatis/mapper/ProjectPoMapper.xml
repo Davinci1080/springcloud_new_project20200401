@@ -31,7 +31,14 @@
     delete from t_project
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.itcast.entity.ProjectPo">
+    <insert id="addProjectAndType">
+        insert into t_project_type(projectid,typeid) values
+        <foreach collection="typeIdList" item="typeid" separator=",">
+       (#{projectid},#{typeid})
+        </foreach>
+
+    </insert>
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.itcast.entity.ProjectPo">
     insert into t_project (id, project_name, project_description, 
       money, day, status, 
       deploydate, supportmoney, supporter, 
